@@ -9,10 +9,15 @@ interface {{ intf.name }}
    {% elif intf.switchport_mode == 'trunk' %}
       switchport mode trunk
    {% endif %}
-   {% if intf.channel_group %}
+   {% if 'channel_group' in intf %}
       channel-group {{ intf.channel_group }} mode active
+   {% else %}
+       exit
    {% endif %}
-   {% if intf.vmtracer %}
+   {% if 'vmtracer' in intf %}
        vmtracer vmware-esx
+       exit
+   {% else %}
+       exit
    {% endif %}
 {% endfor %}
