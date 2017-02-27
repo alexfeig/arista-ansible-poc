@@ -9,7 +9,7 @@
     parents: management cvx
     match: strict
     before: no management cvx
-    provider: "{{ eos_eapi }}"
+    provider: "{{ eos_cli }}"
 
 # TODO: Seems like match always thinks there's a change. Why?
 
@@ -23,22 +23,22 @@
     parents: interface Vxlan1
     match: line
     before: no interface Vxlan1
-    provider: "{{ eos_eapi }}"
+    provider: "{{ eos_cli }}"
 
 - name: Configuring Virtual Router MAC
   eos_config:
     lines:
      - ip virtual-router mac-address {{ virtual_router_mac_address }}
-    provider: "{{ eos_eapi }}"
+    provider: "{{ eos_cli }}"
 
 - name: Configuring Interfaces
   eos_config:
     src: ../templates/interfaces.j2
-    provider: "{{ eos_eapi }}"
+    provider: "{{ eos_cli }}"
   tags: leaf_interfaces
 
 - name: Configuring VLANs
   eos_config:
     src: ../templates/vlans.j2
-    provider: "{{ eos_eapi }}"
+    provider: "{{ eos_cli }}"
   tags: leaf_vlans
