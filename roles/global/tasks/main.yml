@@ -27,7 +27,7 @@
      - ip name-server vrf default 8.8.8.8
      - clock timezone CST6CDT
      - ntp server pool.ntp.org
-     - ip domain-name arista.lab
+     - ip domain-name {{ ip_domain_name }}
     provider: "{{ eos_api }}"
 
 - name: Disabling scheduled tech-support (remove this for production)

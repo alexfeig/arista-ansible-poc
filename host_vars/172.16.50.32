@@ -1,4 +1,7 @@
+hostname: rack2-leaf2
 svi_mlag: 10.255.2.2/30
+mlag_domain_id: Rack2
+mlag_peer_address: 10.255.2.1
 
 ip_interfaces:
   - name: Ethernet1
@@ -21,8 +24,3 @@ ip_interfaces:
     address: 10.4.2.21/31
     state: present
     mtu: 9214
-
-vxlans:
-  - name: VNI 1212
-    vlan: 12
-    vni: 1212

@@ -13,6 +13,13 @@
 
 # TODO: Seems like match always thinks there's a change. Why?
 
+- name: Configuring VXLAN mapping
+  eos_config:
+    src: vxlan.j2
+    provider: "{{ eos_api }}"
+    before: no interface Vxlan1 # Required for VXLAN>VNI Idempotency
+  tags: vxlan
+
 - name: Creating VXLAN Interface
   eos_config:
     lines:
@@ -21,12 +28,6 @@
      - vxlan udp-port 4789
     parents: interface Vxlan1
     provider: "{{ eos_api }}"
-
-- name: Configuring VXLAN mapping
-  eos_config:
-    src: vxlan.j2
-    provider: "{{ eos_api }}"
-  tags: vxlan
 
 - name: Configuring Virtual Router MAC
   eos_config:
@@ -59,9 +60,32 @@
      - no spanning-tree vlan 4094
     provider: "{{ eos_api }}"
 
-- name: Creating MLAG Peer Link
+- name: Creating MLAG SVI
   eos_config:
     lines:
      - ip address {{ svi_mlag }}
     parents: interface Vlan4094
+    provider: "{{ eos_api }}"
+
+- name: Creating MLAG Peer-Link
+  eos_config:
+    lines:
+     - switchport mode trunk
+     - switchport trunk group mlagpeer
+    parents: interface port-channel 1
+    provider: "{{ eos_api }}"
+
+- name: Adding interfaces into MLAG Peer-Link
+  eos_config:
+    src: mlag_interfaces.j2
+    provider: "{{ eos_api }}"
+
+- name: Setting MLAG configuration
+  eos_config:
+    lines:
+     - domain-id {{ mlag_domain_id }}
+     - local-interface Vlan4094
+     - peer-address {{ mlag_peer_address }}
+     - peer-link Port-Channel1
+    parents: mlag configuration
     provider: "{{ eos_api }}"
