@@ -21,3 +21,8 @@ ip_interfaces:
     address: 10.4.2.21/31
     state: present
     mtu: 9214
+
+vxlans:
+  - name: VNI 1212
+    vlan: 12
+    vni: 1212

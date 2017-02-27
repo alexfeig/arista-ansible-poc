@@ -1,0 +1,4 @@
+{% for vxlan in vxlans %}
+interface Vxlan1
+   vxlan vlan {{ vxlan.vlan }} vni {{ vxlan.vni }}
+{% endfor %}

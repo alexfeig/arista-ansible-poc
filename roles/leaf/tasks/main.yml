@@ -19,11 +19,14 @@
      - vxlan source-interface Loopback1
      - vxlan controller-client
      - vxlan udp-port 4789
-     - vxlan vlan 12 vni 1212
     parents: interface Vxlan1
-    match: line
-    before: no interface Vxlan1
     provider: "{{ eos_api }}"
+
+- name: Configuring VXLAN mapping
+  eos_config:
+    src: vxlan.j2
+    provider: "{{ eos_api }}"
+  tags: vxlan
 
 - name: Configuring Virtual Router MAC
   eos_config:
@@ -31,9 +34,9 @@
      - ip virtual-router mac-address {{ virtual_router_mac_address }}
     provider: "{{ eos_api }}"
 
-- name: Configuring Interfaces
+- name: Configuring IP Interfaces
   eos_config:
-    src: interfaces.j2
+    src: ip_interfaces.j2
     provider: "{{ eos_api }}"
   tags: leaf_interfaces
 
@@ -43,7 +46,7 @@
     provider: "{{ eos_api }}"
   tags: leaf_vlans
 
-  - name: Creating MLAG VLAN (4094)
+- name: Creating MLAG VLAN (4094)
   eos_config:
     lines:
      - trunk group mlagpeer
