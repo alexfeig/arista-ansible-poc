@@ -31,8 +31,9 @@ l2_interfaces:
     mtu: 9214
     channel_group: 10
   - name: Ethernet6
-    description: rack2-esxi-01:e2:l2
+    description: rack2-esxi-01:e1:l2
     mtu: 9214
+    status: shutdown
     switchport_mode: access
     switchport_access_vlan: 12
     vmtracer: true

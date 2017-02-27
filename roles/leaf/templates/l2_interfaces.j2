@@ -23,4 +23,9 @@ interface {{ intf.name }}
    {% else %}
 
    {% endif %}
+   {% if intf.status is defined %}
+       shutdown
+   {% else %}
+
+   {% endif %}
 {% endfor %}
