@@ -1,0 +1,7 @@
+{% for intf in ip_interfaces %}
+interface ({{ intf.name }}
+   description {{ intf.description }}
+   no switchport
+   mtu {{ intf.mtu }}
+   ip address {{ intf.address }}
+{% endfor %}

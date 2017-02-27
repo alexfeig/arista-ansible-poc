@@ -1,0 +1,40 @@
+---
+
+- name: eAPI
+  eos_eapi:
+    http: yes
+    http_port: 80
+    state: started
+    provider: "{{ eos_cli }}"
+
+- name: Pausing for 10 seconds for eAPI to start
+  pause:
+    seconds: 10
+
+- name: AAA
+  eos_config:
+    lines:
+      - username admin privilege 15 role network-admin secret 5 {{ admin_secret }}
+      - username admin sshkey ssh-rsa {{ admin_sshkey }}
+    provider: "{{ eos_eapi }}"
+
+- name: DNS and Time
+  eos_config:
+    lines:
+     - ip name-server vrf default 8.8.8.8
+     - clock timezone CST6CDT
+     - ntp server pool.ntp.org
+     - ip domain-name arista.lab
+    provider: "{{ eos_eapi }}"
+
+- name: General
+  eos_config:
+    lines:
+     - no schedule tech-support
+    provider: "{{ eos_eapi }}"
+
+- name: Default route
+  eos_config:
+    lines:
+     - ip route 0.0.0.0/0 {{ route_static_default_nexthop }}
+    provider: "{{ eos_eapi }}"

@@ -1,0 +1,23 @@
+svi_mlag: 10.255.2.1/30
+
+ip_interfaces:
+  - name: Ethernet1
+    description: spine1:e3:p2p
+    address: 10.1.2.11/31
+    state: present
+    mtu: 9214
+  - name: Ethernet2
+    description: spine2:e3:p2p
+    address: 10.2.2.11/31
+    state: present
+    mtu: 9214
+  - name: Ethernet3
+    description: spine3:e3:p2p
+    address: 10.3.2.11/31
+    state: present
+    mtu: 9214
+  - name: Ethernet4
+    description: spine4:e3:p2p
+    address: 10.4.2.11/31
+    state: present
+    mtu: 9214

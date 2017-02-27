@@ -1,0 +1,5 @@
+vlans:
+  - vlanid: 100
+    name: default
+  - vlanid: 200
+    name: production

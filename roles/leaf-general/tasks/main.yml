@@ -1,0 +1,44 @@
+---
+
+- name: Configuring CVX
+  eos_config:
+    lines:
+     - server host {{ cvx_ip }}
+     - source-interface Management1
+     - no shutdown
+    parents: management cvx
+    match: strict
+    before: no management cvx
+    provider: "{{ eos_eapi }}"
+
+# TODO: Seems like match always thinks there's a change. Why?
+
+- name: Creating VXLAN Interface
+  eos_config:
+    lines:
+     - vxlan source-interface Loopback1
+     - vxlan controller-client
+     - vxlan udp-port 4789
+     - vxlan vlan 12 vni 1212
+    parents: interface Vxlan1
+    match: line
+    before: no interface Vxlan1
+    provider: "{{ eos_eapi }}"
+
+- name: Configuring Virtual Router MAC
+  eos_config:
+    lines:
+     - ip virtual-router mac-address {{ virtual_router_mac_address }}
+    provider: "{{ eos_eapi }}"
+
+- name: Configuring Interfaces
+  eos_config:
+    src: ../templates/interfaces.j2
+    provider: "{{ eos_eapi }}"
+  tags: leaf_interfaces
+
+- name: Configuring VLANs
+  eos_config:
+    src: ../templates/vlans.j2
+    provider: "{{ eos_eapi }}"
+  tags: leaf_vlans
