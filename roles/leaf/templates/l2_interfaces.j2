@@ -1,0 +1,11 @@
+{% for intf in l2_interfaces %}
+interface {{ intf.name }}
+   description {{ intf.description }}
+   mtu {{ intf.mtu }}
+   {% if intf.switchport_mode == 'access' %}
+      switchport mode access
+      switchport access vlan {{ intf.switchport_access_vlan }}
+   {% elif intf.switchport_mode == 'trunk' %}
+      switchport mode trunk
+   {% endif %}
+{% endfor %}

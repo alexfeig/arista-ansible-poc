@@ -24,3 +24,10 @@ ip_interfaces:
     address: 10.4.2.21/31
     state: present
     mtu: 9214
+
+l2_interfaces:
+  - name: Ethernet5
+    description: rack2-linux-01:e1:l2
+    mtu: 9214
+    switchport_mode: access
+    switchport_access_vlan: 12

@@ -6,13 +6,10 @@
     provider: "{{ eos_api }}"
   tags: cvx_test
 
-# TODO: Seems like match always thinks there's a change. Why?
-
 - name: Configuring VXLAN mapping
   eos_config:
     src: vxlan.j2
     provider: "{{ eos_api }}"
-    before: no interface Vxlan1 # Required for VXLAN>VNI Idempotency
   tags: vxlan
 
 - name: Creating VXLAN Interface
@@ -84,3 +81,9 @@
      - peer-link Port-Channel1
     parents: mlag configuration
     provider: "{{ eos_api }}"
+
+- name: Configuring L2 Interfaces
+  eos_config:
+    src: l2_interfaces.j2
+    provider: "{{ eos_api }}"
+  tags: l2_interfaces
