@@ -2,5 +2,4 @@
   gather_facts: no
   connection: local
   roles:
-  - role: Leaf-General
-  - role: Leaf-MLAG
+  - role: Leaf
