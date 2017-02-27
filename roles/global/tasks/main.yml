@@ -41,3 +41,11 @@
     lines:
      - ip route 0.0.0.0/0 {{ route_static_default_nexthop }}
     provider: "{{ eos_api }}"
+
+- name: Enabling VMware tools
+  eos_config:
+    lines:
+     - trigger on-boot
+     - action bash sudo systemctl start vmtoolsd.service
+     - delay 0
+    parent: event-handler vmware-tools

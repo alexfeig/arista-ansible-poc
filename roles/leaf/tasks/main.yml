@@ -2,14 +2,9 @@
 
 - name: Configuring CVX
   eos_config:
-    lines:
-     - server host {{ cvx_ip }}
-     - source-interface Management1
-     - no shutdown
-    parents: management cvx
-    match: strict
-    before: no management cvx
+    src: cvx.j2
     provider: "{{ eos_api }}"
+  tags: cvx_test
 
 # TODO: Seems like match always thinks there's a change. Why?
 

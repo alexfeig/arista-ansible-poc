@@ -1,0 +1,6 @@
+management cvx
+   source-interface Management1
+   no shutdown
+{% for cvxhost in cvx %}
+   server host {{ cvxhost.host }}
+{% endfor %}
