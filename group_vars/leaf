@@ -1,3 +1,6 @@
+cvx_ip: 172.16.50.100
+virtual_router_mac_address: 00:1c:73:00:00:aa
+
 vlans:
   - vlanid: 100
     name: default
