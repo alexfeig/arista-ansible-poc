@@ -3,10 +3,16 @@ default interface {{ intf.name }}
 interface {{ intf.name }}
    description {{ intf.description }}
    mtu {{ intf.mtu }}
-   {% if intf.switchport_mode == 'access' %}
+   {% if intf.switchport_mode == 'access' and not intf.channel_group %}
       switchport mode access
       switchport access vlan {{ intf.switchport_access_vlan }}
    {% elif intf.switchport_mode == 'trunk' %}
       switchport mode trunk
+   {% endif %}
+   {% if intf.channel_group %}
+      channel-group {{ intf.channel_group }} mode active
+   {% endif %}
+   {% if intf.vmtracer %}
+       vmtracer vmware-esx
    {% endif %}
 {% endfor %}
