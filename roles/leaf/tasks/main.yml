@@ -4,7 +4,6 @@
   eos_config:
     src: cvx.j2
     provider: "{{ eos_api }}"
-  tags: cvx_test
 
 - name: Configuring VXLAN mapping
   eos_config:

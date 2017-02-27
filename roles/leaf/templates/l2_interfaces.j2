@@ -1,4 +1,5 @@
 {% for intf in l2_interfaces %}
+default interface {{ intf.name }}
 interface {{ intf.name }}
    description {{ intf.description }}
    mtu {{ intf.mtu }}

@@ -15,6 +15,6 @@ vxlans:
   - name: VNI 1212
     vlan: 12
     vni: 1212
-  - name: VNI 20
-    vlan: 20
-    vni: 2020
+  #- name: VNI 20
+  #  vlan: 20
+  #  vni: 2020
