@@ -20,7 +20,7 @@
     lines:
       - username admin privilege 15 role network-admin secret 5 {{ admin_secret }}
       - username admin sshkey ssh-rsa {{ admin_sshkey }}
-    provider: "{{ eos_cli }}"
+    provider: "{{ eos_eapi }}"
 
 - name: Configuring DNS and Time
   eos_config:
@@ -29,16 +29,16 @@
      - clock timezone CST6CDT
      - ntp server pool.ntp.org
      - ip domain-name arista.lab
-    provider: "{{ eos_cli }}"
+    provider: "{{ eos_eapi }}"
 
 - name: Disabling scheduled tech-support (remove this for production)
   eos_config:
     lines:
      - no schedule tech-support
-    provider: "{{ eos_cli }}"
+    provider: "{{ eos_eapi }}"
 
 - name: Configuring a default route
   eos_config:
     lines:
      - ip route 0.0.0.0/0 {{ route_static_default_nexthop }}
-    provider: "{{ eos_cli }}"
+    provider: "{{ eos_eapi }}"
