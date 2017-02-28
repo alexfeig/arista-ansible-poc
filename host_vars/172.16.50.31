@@ -1,7 +1,20 @@
 hostname: rack2-leaf1
+
 svi_mlag: 10.255.2.1/30
+
 mlag_domain_id: Rack2
 mlag_peer_address: 10.255.2.2
+
+bgp:
+  - as_local: 65102
+  - as_spine: 65001
+  - router_id: 10.254.254.31
+  - spines:
+     -spine1: 10.1.2.10
+     -spine2: 10.2.2.10
+     -spine3: 10.3.2.10
+     -spine4: 10.4.2.10
+     -leaf: 10.255.2.2
 
 ip_interfaces:
   - name: Ethernet1
