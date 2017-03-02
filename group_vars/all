@@ -1,0 +1,24 @@
+---
+
+ansible_python_interpreter: /usr/local/Cellar/python/2.7.11/Frameworks/Python.framework/Versions/2.7/bin/python2.7
+
+eos_api:
+  host: '{{ inventory_hostname }}'
+  username: admin
+  password: arista
+  authorize: true
+  use_ssl: yes
+  transport: eapi
+  validate_certs: false
+
+eos_cli:
+  host: '{{ inventory_hostname }}'
+  username: admin
+  password: arista
+  authorize: true
+  transport: cli
+  no_log: false
+
+ip_domain_name: arista.lab
+
+route_static_default_nexthop: 172.16.50.1

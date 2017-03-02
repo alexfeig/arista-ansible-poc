@@ -3,3 +3,4 @@
 /meta/*
 /meta/
 /group_vars/all
+!/group_vars/all
