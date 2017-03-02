@@ -1,7 +1,5 @@
 ---
 
-ansible_python_interpreter: /usr/local/Cellar/python/2.7.11/Frameworks/Python.framework/Versions/2.7/bin/python2.7
-
 eos_api:
   host: '{{ inventory_hostname }}'
   username: admin
