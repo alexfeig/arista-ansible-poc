@@ -1,7 +1,7 @@
 {% for intf in po_interfaces %}
 interface {{ intf.name }}
    {% if intf.switchport_mode is defined %}
-     {% if intf.switchport_access_vlan is defined %}
+     {% if intf.switchport_mode == 'access' %}
         switchport access vlan {{ intf.switchport_access_vlan }}
      {% elif intf.switchport_mode == 'trunk' %}
         switchport mode trunk

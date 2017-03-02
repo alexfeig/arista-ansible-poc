@@ -62,5 +62,6 @@ l2_interfaces:
 po_interfaces:
   - name: Port-Channel10
     description: rack2-linux-01
+    switchport_mode: access
     switchport_access_vlan: 12
     mlag: 10
