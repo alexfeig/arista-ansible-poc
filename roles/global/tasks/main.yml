@@ -14,6 +14,12 @@
     state: started
     timeout: 10
 
+- name: Configuring hostname
+  eos_config:
+    lines:
+      - hostname {{ hostname }}
+    provider: "{{ eos_api }}"
+
 - name: Configuring AAA
   eos_config:
     lines:

@@ -58,3 +58,8 @@ l2_interfaces:
     switchport_mode: access
     switchport_access_vlan: 12
     vmtracer: true
+
+po_interfaces:
+  - name: Port-Channel10
+    switchport_access_vlan: 12
+    mlag: 10

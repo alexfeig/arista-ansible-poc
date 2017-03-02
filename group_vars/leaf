@@ -8,7 +8,7 @@ mlag_interfaces:
   - name: Ethernet7
 
 vlans:
-  - vlanid: 101
+  - vlanid: 12
     name: Test_VLAN
 
 vxlans:
