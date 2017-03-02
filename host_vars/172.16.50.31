@@ -20,8 +20,10 @@ bgp:
 
 lo_interfaces:
   - name: Loopback0
+    description: BGP Loopback
     ip: 10.254.254.32/32
   - name: Loopback1
+    description: VXLAN Loopback
     ip: 10.254.255.31/32
 
 ip_interfaces:
@@ -63,3 +65,9 @@ po_interfaces:
     switchport_mode: access
     switchport_access_vlan: 12
     mlag: 10
+
+vlan_interfaces:
+  - name: vlan12
+    description: Production
+    address: 172.16.112.31/24
+    ip_virtual_router_address: 172.16.112.1

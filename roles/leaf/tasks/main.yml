@@ -92,3 +92,15 @@
     src: po_interfaces.j2
     provider: "{{ eos_api }}"
   tags: po_interfaces
+
+- name: Configuring Loopback Interfaces
+  eos_config:
+    src: lo_interfaces.j2
+    provider: "{{ eos_api }}"
+  tags: lo_interfaces
+
+- name: Configuring VLAN Interfaces
+  eos_config:
+    src: vlan_interfaces.j2
+    provider: "{{ eos_api }}"
+  tags: vlan_interfaces
