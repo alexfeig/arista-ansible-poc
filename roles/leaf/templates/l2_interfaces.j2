@@ -1,7 +1,6 @@
 {% for intf in l2_interfaces %}
 #default interface {{ intf.name }}
 interface {{ intf.name }}
-   mtu {{ intf.mtu }}
    {% if intf.switchport_mode is defined %}
      {% if intf.switchport_mode == 'access' %}
         switchport mode access
