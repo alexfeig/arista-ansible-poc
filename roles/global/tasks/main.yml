@@ -49,3 +49,4 @@
      - action bash sudo systemctl start vmtoolsd.service
      - delay 0
     parents: event-handler vmware-tools
+    provider: "{{ eos_api }}"
