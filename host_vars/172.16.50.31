@@ -71,3 +71,7 @@ vlan_interfaces:
     description: Production
     address: 172.16.112.31/24
     ip_virtual_router_address: 172.16.112.1
+  - name: vlan21
+    description: Production2
+    address: 172.16.121.31/24
+    ip_virtual_router_address: 172.16.121.1
