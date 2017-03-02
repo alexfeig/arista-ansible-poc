@@ -9,7 +9,7 @@
 - name: Checking to see if eAPI is online
   wait_for:
     host: "{{ inventory_hostname }}"
-    port: 80
+    port: 443
     delay: 2
     state: started
     timeout: 10
