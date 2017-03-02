@@ -48,4 +48,4 @@
      - trigger on-boot
      - action bash sudo systemctl start vmtoolsd.service
      - delay 0
-    parent: event-handler vmware-tools
+    parents: event-handler vmware-tools
