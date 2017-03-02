@@ -5,4 +5,6 @@ interface {{ intf.name }}
    {% if intf.ip_virtual_router_address is defined %}
       ip virtual-router address {{ intf.ip_virtual_router_address }}
    {% else %}
+
+   {% endif %}
 {% endfor %}
