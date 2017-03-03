@@ -6,7 +6,7 @@
     state: started
     provider: "{{ eos_cli }}"
 
-- name: Checking to see if eAPI is online
+- name: Checking to see if eAPI is online.
   wait_for:
     host: "{{ inventory_hostname }}"
     port: 443
