@@ -48,7 +48,7 @@
      - ip route 0.0.0.0/0 {{ route_static_default_nexthop }}
     provider: "{{ eos_api }}"
 
-- name: Enabling VMware tools
+- name: Enabling VMware tools (remove this for production)
   eos_config:
     lines:
      - trigger on-boot
