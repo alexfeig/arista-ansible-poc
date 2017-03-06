@@ -10,13 +10,13 @@ bgp:
   - as_spine: 65001
   - router_id: 10.254.254.31
   - spines:
-     -spine1: 10.1.2.10
-     -spine2: 10.2.2.10
-     -spine3: 10.3.2.10
-     -spine4: 10.4.2.10
-     -leaf: 10.255.2.2
+     - 10.1.2.10
+     - 10.2.2.10
+     - 10.3.2.10
+     - 10.4.2.10
+  - partner_leaf: 10.255.2.2
   - networks:
-     - network1: 172.16.112.0/24
+     - 172.16.112.0/24
 
 lo_interfaces:
   - name: Loopback0

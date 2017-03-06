@@ -1,2 +1,20 @@
 router bgp {{ bgp[0].as_local }}
-   shutdown
+   router-id {{ bgp[0].router_id }}
+   maximum-paths 4 ecmp 4
+   neighbor Spine peer-group
+   neighbor Spine remote-as {{ bgp[0].remote_as }}
+   neighbor Spine fall-over bfd
+   neighbor Spine maximum-routes 12000
+   {% for spine in bgp[0].spines %}
+     neighbor {{ spine }} peer-group Spine
+   {% endfor %}
+   neighbor {{ bgp[0].partner_leaf }} remote_as {{ bgp[0].as_local }}
+   neighbor {{ bgp[0].partner_leaf }} next-hop-self
+   neighbor {{ bgp[0].partner_leaf }} fall-over bfd
+   neighbor {{ bgp[0].partner_leaf }} maximum-routes 12000
+   {% for loopback in lo_interfaces %}
+     network {{ loopback.address }}
+   {% endfor %}
+   {% for network in bgp[0].networks %}
+     network {{ network }}
+   {% endfor %}
