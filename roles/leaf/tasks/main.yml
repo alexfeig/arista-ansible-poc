@@ -109,6 +109,7 @@
   debug:
     var: hostvars[inventory_hostname]
     verbosity: 4
+  tags: leaf_bgp
 
 - name: Configuring BGP
   eos_config:
