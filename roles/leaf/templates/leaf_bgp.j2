@@ -1,5 +1,5 @@
 router bgp {{ bgp[0].as_local }}
-   router-id {{ router_id }}
+   router-id {{ bgp[0].router_id }}
    maximum-paths 4 ecmp 4
    neighbor Spine peer-group
    neighbor Spine remote-as {{ bgp[0].remote_as }}
