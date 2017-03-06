@@ -104,3 +104,9 @@
     src: vlan_interfaces.j2
     provider: "{{ eos_api }}"
   tags: vlan_interfaces
+
+- name: Configuring BGP
+  eos_config:
+    src: leaf_bgp.j2
+    provider: "{{ eos_api }}"
+  tags: leaf_bgp
