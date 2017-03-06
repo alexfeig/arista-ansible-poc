@@ -20,7 +20,7 @@ bgp:
 
 lo_interfaces:
   - name: Loopback0
-    description: BGP RID TESTING
+    description: BGP RID
     address: 10.254.254.32/32
   - name: Loopback1
     description: VXLAN Source Interface
