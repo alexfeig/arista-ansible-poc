@@ -105,6 +105,11 @@
     provider: "{{ eos_api }}"
   tags: vlan_interfaces
 
+- name: Display all variables/facts known for a host
+  debug:
+    var: hostvars[inventory_hostname]
+    verbosity: 4
+
 - name: Configuring BGP
   eos_config:
     src: leaf_bgp.j2
