@@ -116,6 +116,6 @@
     commands:
       - copy running-config temp-config
       - bash mv /mnt/flash/temp-config /mnt/flash/startup-config
-      - reload force
+      - zerotouch disable
     provider: "{{ eos_cli }}"
   tags: write_config
