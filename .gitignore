@@ -1,5 +1,5 @@
 /.idea
-/*.retry
+*.retry
 /meta/*
 /meta/
 /group_vars/all

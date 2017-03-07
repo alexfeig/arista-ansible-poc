@@ -9,8 +9,7 @@ mlag_interfaces:
 vlans:
   - vlanid: 12
     name: Hosts
-
-vxlans:
-  - name: VNI 1212
-    vlan: 12
     vni: 1212
+  - vlanid: 13
+    name: Hosts2
+    vni: 1213
