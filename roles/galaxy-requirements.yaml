@@ -1,0 +1,2 @@
+- src: arista.eos-bridging
+- src: arista.eos-vxlan

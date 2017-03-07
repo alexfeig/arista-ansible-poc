@@ -6,6 +6,10 @@ cvx:
 mlag_interfaces:
   - name: Ethernet7
 
+# vxlan is required for arista.eos-vxlan
+vxlan:
+    name: Vxlan1
+
 vlans:
   - vlanid: 12
     name: Hosts
@@ -13,3 +17,4 @@ vlans:
   - vlanid: 13
     name: Hosts2
     vni: 1213
+    state: present

@@ -2,5 +2,5 @@
 *.retry
 /meta/*
 /meta/
-/group_vars/all
-!/group_vars/all
+/roles/arista.eos-bridging/
+/roles/arista.eos-vxlan/

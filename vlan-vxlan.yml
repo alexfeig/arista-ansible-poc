@@ -1,0 +1,5 @@
+- hosts: leaf
+  connection: local
+  roles:
+     - arista.eos-bridging
+     - arista.eos-vxlan
