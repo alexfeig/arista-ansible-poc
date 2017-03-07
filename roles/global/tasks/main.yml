@@ -30,7 +30,7 @@
 - name: Configuring DNS and Time
   eos_config:
     lines:
-     - ip name-server vrf default 8.8.8.8
+     - ip name-server vrf default {{ ip_name_server }}
      - clock timezone CST6CDT
      - ntp server pool.ntp.org
      - ip domain-name {{ ip_domain_name }}
