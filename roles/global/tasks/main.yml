@@ -48,6 +48,12 @@
      - ip route 0.0.0.0/0 {{ route_static_default_nexthop }}
     provider: "{{ eos_api }}"
 
+- name: Enabling IP routing
+  eos_config:
+    lines:
+     - ip routing
+    provider: "{{ eos_api }}"
+
 - name: Enabling VMware tools (remove this for production)
   eos_config:
     lines:

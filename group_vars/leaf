@@ -2,19 +2,15 @@ virtual_router_mac_address: 00:1c:73:00:00:aa
 
 cvx:
   - host: 172.16.50.100
-  - host: 172.16.50.101
 
 mlag_interfaces:
   - name: Ethernet7
 
 vlans:
   - vlanid: 12
-    name: Test_VLAN
+    name: Hosts
 
 vxlans:
   - name: VNI 1212
     vlan: 12
     vni: 1212
-  #- name: VNI 20
-  #  vlan: 20
-  #  vni: 2020

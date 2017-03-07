@@ -110,3 +110,9 @@
     src: leaf_bgp.j2
     provider: "{{ eos_api }}"
   tags: leaf_bgp
+
+- name: Writing configuration
+  eos_command:
+    commands:
+      - copy running-config temp-config
+      - bash mv /mnt/flash/temp-config /mnt/flash/startup-config
