@@ -116,3 +116,4 @@
     commands:
       - copy running-config temp-config
       - bash mv /mnt/flash/temp-config /mnt/flash/startup-config
+    provider: "{{ eos_api }}"
