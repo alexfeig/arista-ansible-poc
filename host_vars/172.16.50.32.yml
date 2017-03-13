@@ -1,5 +1,7 @@
 hostname: rack2-leaf2
+
 svi_mlag: 10.255.2.2/30
+
 mlag_domain_id: Rack2
 mlag_peer_address: 10.255.2.1
 
