@@ -62,3 +62,4 @@
      - delay 0
     parents: event-handler vmware-tools
     provider: "{{ eos_api }}"
+    ignore_errors: yes
