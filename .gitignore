@@ -1,6 +1,4 @@
-/.idea
 *.retry
 /meta/*
 /meta/
-/roles/arista.eos-bridging/
-/roles/arista.eos-vxlan/
+/roles/arista.*

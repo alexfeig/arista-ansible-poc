@@ -9,6 +9,7 @@ mlag_interfaces:
 # vxlan is required for arista.eos-vxlan
 vxlan:
     name: Vxlan1
+    source_interface: Loopback1
 
 vlans:
   - vlanid: 12
@@ -17,4 +18,3 @@ vlans:
   - vlanid: 13
     name: Hosts2
     vni: 1213
-    state: present

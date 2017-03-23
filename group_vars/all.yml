@@ -1,5 +1,11 @@
 ---
 
+# If true, when the role provisions vlans, it will remove extraneous vlans that are present in the configuration but haven't been specified in your host variables.
+eos_purge_vlans: true
+
+# Enable or disable purging of Vlan to VNI mappings that are not defined in the vxlan_vlans object.
+eos_purge_vxlan: true
+
 # provider is required for arista.eos-* modules.
 provider:
   host: '{{ inventory_hostname }}'
