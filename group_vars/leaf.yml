@@ -19,5 +19,5 @@ vlans:
     name: Hosts2
     vni: 1213
   - vlanid: 14
-    name: Hosts3
+    name: Foo
     vni: 1214
