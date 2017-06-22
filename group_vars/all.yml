@@ -35,6 +35,6 @@ eos_cli:
 
 ip_domain_name: arista.lab
 
-route_static_default_nexthop: 172.16.50.1
+route_static_default_nexthop: 192.168.50.1
 
-ip_name_server: 172.16.50.1
+ip_name_server: 192.168.50.1
