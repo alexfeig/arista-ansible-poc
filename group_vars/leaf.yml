@@ -18,6 +18,6 @@ vlans:
   - vlanid: 13
     name: Hosts2
     vni: 1213
-  - vlanid: 14
+  - vlanid: 15
     name: Hosts3
-    vni: 1214
+    vni: 1215
