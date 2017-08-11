@@ -21,3 +21,6 @@ vlans:
   - vlanid: 25
     name: Hosts25
     vni: 2525
+  - vlanid: 100
+    name: foo
+    vni: 10000
