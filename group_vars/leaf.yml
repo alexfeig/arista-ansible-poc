@@ -18,3 +18,5 @@ vlans:
   - vlanid: 13
     name: Hosts2
     vni: 1213
+  - vlanid: 500
+    name: Foo
