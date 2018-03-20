@@ -31,7 +31,6 @@ eos_cli:
   password: arista
   authorize: true
   transport: cli
-  no_log: false
 
 ip_domain_name: arista.lab
 
