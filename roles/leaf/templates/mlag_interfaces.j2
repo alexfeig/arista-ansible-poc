@@ -1,5 +1,0 @@
-{% for intf in mlag_interfaces %}
-interface {{ intf.name }}
-   description Peer-Link
-   channel-group 1 mode active
-{% endfor %}

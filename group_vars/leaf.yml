@@ -13,11 +13,8 @@ vxlan:
 
 vlans:
   - vlanid: 12
-    name: Hosts
+    name: Rack1-Host1
     vni: 1212
   - vlanid: 13
-    name: Hosts2
+    name: Rack2-Host1
     vni: 1213
-  - vlanid: 14
-    name: foo
-    vni: 100014

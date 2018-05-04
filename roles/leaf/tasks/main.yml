@@ -1,5 +1,4 @@
 ---
-
 - name: Configuring CVX
   eos_config:
     src: cvx.j2
@@ -10,21 +9,6 @@
     src: vxlan.j2
     provider: "{{ eos_api }}"
   tags: vxlan
-
-- name: Creating VXLAN Interface
-  eos_config:
-    lines:
-     - vxlan source-interface Loopback1
-     - vxlan controller-client
-     - vxlan udp-port 4789
-    parents: interface Vxlan1
-    provider: "{{ eos_api }}"
-
-- name: Configuring Virtual Router MAC
-  eos_config:
-    lines:
-     - ip virtual-router mac-address {{ virtual_router_mac_address }}
-    provider: "{{ eos_api }}"
 
 - name: Configuring IP Interfaces
   eos_config:
@@ -38,47 +22,9 @@
     provider: "{{ eos_api }}"
   tags: leaf_vlans
 
-- name: Creating MLAG VLAN (4094)
+- name: Configuring MLAG
   eos_config:
-    lines:
-     - trunk group mlagpeer
-    parents: vlan 4094
-    provider: "{{ eos_api }}"
-
-- name: Disabling Spanning Tree on MLAG VLAN
-  eos_config:
-    lines:
-     - no spanning-tree vlan 4094
-    provider: "{{ eos_api }}"
-
-- name: Creating MLAG SVI
-  eos_config:
-    lines:
-     - ip address {{ svi_mlag }}
-    parents: interface Vlan4094
-    provider: "{{ eos_api }}"
-
-- name: Creating MLAG Peer-Link
-  eos_config:
-    lines:
-     - switchport mode trunk
-     - switchport trunk group mlagpeer
-    parents: interface port-channel 1
-    provider: "{{ eos_api }}"
-
-- name: Adding interfaces into MLAG Peer-Link
-  eos_config:
-    src: mlag_interfaces.j2
-    provider: "{{ eos_api }}"
-
-- name: Setting MLAG configuration
-  eos_config:
-    lines:
-     - domain-id {{ mlag_domain_id }}
-     - local-interface Vlan4094
-     - peer-address {{ mlag_peer_address }}
-     - peer-link Port-Channel1
-    parents: mlag configuration
+    src: mlag.j2
     provider: "{{ eos_api }}"
 
 - name: Configuring L2 Interfaces
@@ -111,11 +57,3 @@
     provider: "{{ eos_api }}"
   tags: leaf_bgp
 
-- name: Writing configuration
-  eos_command:
-    commands:
-      - copy running-config temp-config
-      - bash mv /mnt/flash/temp-config /mnt/flash/startup-config
-      - zerotouch disable
-    provider: "{{ eos_cli }}"
-  tags: write_config

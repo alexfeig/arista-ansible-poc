@@ -1,0 +1,28 @@
+
+ip virtual-router mac-address {{ virtual_router_mac_address }}
+
+vlan 4094
+   trunk group mlagpeer
+
+no spanning-tree vlan 4094
+
+interface Vlan4094
+   ip address {{ svi_mlag }}
+
+interface port-channel 1
+   switchport mode trunk
+   switchport trunk group mlagpeer
+
+{% for intf in mlag_interfaces %}
+interface {{ intf.name }}
+   description Peer-Link
+   channel-group 1 mode active
+{% endfor %}
+
+mlag configuration
+   domain-id {{ mlag_domain_id }}
+   local-interface Vlan4094
+   peer-address {{ mlag_peer_address }}
+   peer-link Port-Channel1
+
+
