@@ -1,0 +1,140 @@
+ip virtual-router mac-address {{ virtual_router_mac_address }}
+
+vlan 4094
+   trunk group mlagpeer
+
+no spanning-tree vlan 4094
+
+interface Vlan4094
+   ip address {{ svi_mlag }}
+
+interface port-channel 1
+   switchport mode trunk
+   switchport trunk group mlagpeer
+
+{% for intf in mlag_interfaces %}
+interface {{ intf.name }}
+   description Peer-Link
+   channel-group 1 mode active
+{% endfor %}
+
+mlag configuration
+   domain-id {{ mlag_domain_id }}
+   local-interface Vlan4094
+   peer-address {{ mlag_peer_address }}
+   peer-link Port-Channel1
+
+{% for intf in l2_interfaces %}
+interface {{ intf.name }}
+   {% if intf.switchport_mode is defined %}
+     {% if intf.switchport_mode == 'access' %}
+        switchport mode access
+        switchport access vlan {{ intf.switchport_access_vlan }}
+     {% elif intf.switchport_mode == 'trunk' %}
+        switchport mode trunk
+     {% else %}
+
+     {% endif %}
+   {% endif %}
+   {% if intf.channel_group is defined %}
+      channel-group {{ intf.channel_group }} mode active
+   {% else %}
+
+   {% endif %}
+   {% if intf.vmtracer is defined %}
+       vmtracer vmware-esx
+   {% else %}
+
+   {% endif %}
+   {% if intf.status is defined %}
+       shutdown
+   {% else %}
+
+   {% endif %}
+   description {{ intf.description }}
+{% endfor %}
+
+{% for intf in ip_interfaces %}
+interface {{ intf.name }}
+   description {{ intf.description }}
+   no switchport
+   mtu {{ intf.mtu }}
+   ip address {{ intf.address }}
+{% endfor %}
+
+{% for intf in lo_interfaces %}
+interface {{ intf.name }}
+   description {{ intf.description }}
+   ip address {{ intf.address }}
+{% endfor %}
+
+{% for intf in po_interfaces %}
+interface {{ intf.name }}
+   {% if intf.switchport_mode is defined %}
+     {% if intf.switchport_mode == 'access' %}
+        switchport access vlan {{ intf.switchport_access_vlan }}
+     {% elif intf.switchport_mode == 'trunk' %}
+        switchport mode trunk
+     {% else %}
+
+     {% endif %}
+   {% endif %}
+   {% if intf.mlag is defined %}
+      mlag {{ intf.mlag }}
+   {% else %}
+
+   {% endif %}
+   description {{ intf.description }}
+{% endfor %}
+
+{% for intf in vlan_interfaces %}
+interface {{ intf.name }}
+   description {{ intf.description }}
+   ip address {{ intf.address }}
+   {% if intf.ip_virtual_router_address is defined %}
+      ip virtual-router address {{ intf.ip_virtual_router_address }}
+   {% else %}
+
+   {% endif %}
+{% endfor %}
+
+{% for vlan in vlans %}
+vlan {{ vlan.vlanid }}
+   name {{ vlan.name }}
+{% endfor %}
+
+router bgp {{ bgp.as_local }}
+   router-id {{ bgp.router_id }}
+   maximum-paths 4 ecmp 4
+   neighbor Spine peer-group
+   neighbor Spine remote-as {{ bgp.as_spine }}
+   neighbor Spine fall-over bfd
+   neighbor Spine maximum-routes 12000
+{% for spine in bgp.spines %}
+   neighbor {{ spine }} peer-group Spine
+{% endfor %}
+   neighbor {{ bgp.partner_leaf }} remote-as {{ bgp.as_local }}
+   neighbor {{ bgp.partner_leaf }} next-hop-self
+   neighbor {{ bgp.partner_leaf }} fall-over bfd
+   neighbor {{ bgp.partner_leaf }} maximum-routes 12000
+{% for loopback in lo_interfaces %}
+   network {{ loopback.address }}
+{% endfor %}
+{% for network in bgp.networks %}
+   network {{ network }}
+{% endfor %}
+
+management cvx
+   source-interface Management1
+   no shutdown
+{% for cvxhost in cvx %}
+   server host {{ cvxhost.host }}
+{% endfor %}
+
+interface Vxlan1
+   vxlan source-interface Loopback1
+   vxlan controller-client
+   vxlan udp-port 4789
+{% for vxlan in vlans %}
+   vxlan vlan {{ vxlan.vlanid }} vni {{ vxlan.vni }}
+{% endfor %}

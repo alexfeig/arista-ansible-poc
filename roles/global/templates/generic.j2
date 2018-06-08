@@ -1,0 +1,17 @@
+hostname {{ hostname }}
+
+username admin privilege 15 role network-admin secret 5 {{ admin_secret }}
+username admin sshkey ssh-rsa {{ admin_sshkey }}
+
+clock timezone CST6CDT
+
+no schedule tech-support
+
+ip route 0.0.0.0/0 {{ route_static_default_nexthop }}
+
+ip routing
+
+event-handler vmware-tools
+  trigger on-boot
+  action bash sudo systemctl start vmtoolsd.service
+  delay 0

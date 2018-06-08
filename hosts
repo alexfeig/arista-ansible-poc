@@ -1,5 +1,25 @@
 [all]
-192.168.50.31
+leaf1 ansible_host=192.168.50.21
+leaf2 ansible_host=192.168.50.22
+leaf3 ansible_host=192.168.50.31
+leaf4 ansible_host=192.168.50.32
+leaf5 ansible_host=192.168.50.41
+leaf6 ansible_host=192.168.50.42
+spine1 ansible_host=192.168.50.51
+spine2 ansible_host=192.168.50.52
+spine3 ansible_host=192.168.50.53
+spine4 ansible_host=192.168.50.54
 
 [leaf]
-192.168.50.31
+leaf1 ansible_host=192.168.50.21
+leaf2 ansible_host=192.168.50.22
+leaf3 ansible_host=192.168.50.31
+leaf4 ansible_host=192.168.50.32
+leaf5 ansible_host=192.168.50.41
+leaf6 ansible_host=192.168.50.42
+
+[spines]
+spine1 ansible_host=192.168.50.51
+spine2 ansible_host=192.168.50.52
+spine3 ansible_host=192.168.50.53
+spine4 ansible_host=192.168.50.54

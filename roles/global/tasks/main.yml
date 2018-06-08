@@ -1,65 +1,43 @@
 ---
+  - block: 
+    - name: "[Prod] eAPI"
+      eos_eapi:
+        http: no
+        state: started
+        provider: "{{ eos_cli }}"
 
-- name: eAPI
-  eos_eapi:
-    http: no
-    state: started
-    provider: "{{ eos_cli }}"
+    - name: "[Prod] hecking to see if eAPI is online"
+      wait_for:
+        host: "{{ inventory_hostname }}"
+        port: 443
+        delay: 2
+        state: started
+        timeout: 10
 
-- name: Checking to see if eAPI is online.
-  wait_for:
-    host: "{{ inventory_hostname }}"
-    port: 443
-    delay: 2
-    state: started
-    timeout: 10
+    - name: "[Prod] Performing generic configuration"
+      eos_config:
+        src: generic.j2
+        provider: "{{ eos_api }}"
+        
+    when: production is defined
 
-- name: Configuring hostname
-  eos_config:
-    lines:
-      - hostname {{ hostname }}
-    provider: "{{ eos_api }}"
+  - block: 
+    - name: "[Test] Peforming initial file cleanup"
+      file:
+        state: absent
+        path: "{{ item }}"
+      with_items:
+        - "configs/{{ inventory_hostname }}/{{ inventory_hostname }}.config"
 
-- name: Configuring AAA
-  eos_config:
-    lines:
-      - username admin privilege 15 role network-admin secret 5 {{ admin_secret }}
-      - username admin sshkey ssh-rsa {{ admin_sshkey }}
-    provider: "{{ eos_api }}"
+    - name: "[Test] Creating required directories"
+      file:
+        path: "configs/{{ inventory_hostname }}/"
+        state: directory
 
-- name: Configuring DNS and Time
-  eos_config:
-    lines:
-     - ip name-server vrf default {{ ip_name_server }}
-     - clock timezone CST6CDT
-     - ntp server pool.ntp.org
-     - ip domain-name {{ ip_domain_name }}
-    provider: "{{ eos_api }}"
+    - name: "[Test] Generating Configuration Files"
+      local_action: template
+      args:
+        src: generic.j2
+        dest: "configs/{{ inventory_hostname }}/{{ inventory_hostname }}_global.config"
 
-- name: Disabling scheduled tech-support (remove this for production)
-  eos_config:
-    lines:
-     - no schedule tech-support
-    provider: "{{ eos_api }}"
-
-- name: Configuring a default route
-  eos_config:
-    lines:
-     - ip route 0.0.0.0/0 {{ route_static_default_nexthop }}
-    provider: "{{ eos_api }}"
-
-- name: Enabling IP routing
-  eos_config:
-    lines:
-     - ip routing
-    provider: "{{ eos_api }}"
-
-- name: Enabling VMware tools (remove this for production)
-  eos_config:
-    lines:
-     - trigger on-boot
-     - action bash sudo systemctl start vmtoolsd.service
-     - delay 0
-    parents: event-handler vmware-tools
-    provider: "{{ eos_api }}"
-  ignore_errors: yes
+    when: test is defined

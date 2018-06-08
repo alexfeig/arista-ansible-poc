@@ -1,0 +1,49 @@
+hostname: spine3
+
+bgp:
+   as_local: 65001
+   router_id: 10.254.254.53
+   leaf:
+      - 10.3.1.11
+      - 10.3.1.21
+      - 10.3.2.11
+      - 10.3.2.21
+      - 10.3.3.11
+      - 10.3.3.21
+
+lo_interfaces:
+  - name: Loopback0
+    description: BGP RID
+    address: 10.254.254.53/32
+
+ip_interfaces:
+  - name: Ethernet1
+    description: leaf1:e3:p2p
+    address: 10.3.1.10/31
+    state: present
+    mtu: 9214
+  - name: Ethernet2
+    description: leaf2:e3:p2p
+    address: 10.3.1.20/31
+    state: present
+    mtu: 9214
+  - name: Ethernet3
+    description: leaf3:e3:p2p
+    address: 10.3.2.10/31
+    state: present
+    mtu: 9214
+  - name: Ethernet4
+    description: leaf4:e3:p2p
+    address: 10.3.2.20/31
+    state: present
+    mtu: 9214
+  - name: Ethernet5
+    description: leaf5:e3:p2p
+    address: 10.3.3.10/31
+    state: present
+    mtu: 9214
+  - name: Ethernet6
+    description: leaf6:e3:p2p
+    address: 10.3.3.20/31
+    state: present
+    mtu: 9214

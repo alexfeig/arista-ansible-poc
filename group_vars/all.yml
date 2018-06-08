@@ -16,6 +16,7 @@ provider:
   transport: eapi
   validate_certs: false
 
+# used for eapi connections
 eos_api:
   host: '{{ inventory_hostname }}'
   username: admin
@@ -25,6 +26,7 @@ eos_api:
   transport: eapi
   validate_certs: false
 
+# used for enabling eapi
 eos_cli:
   host: '{{ inventory_hostname }}'
   username: admin

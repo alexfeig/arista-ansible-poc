@@ -4,7 +4,7 @@ cvx:
   - host: 172.16.50.100
 
 mlag_interfaces:
-  - name: Ethernet7
+  - name: Ethernet5
 
 # vxlan is required for arista.eos-vxlan
 vxlan:

@@ -1,64 +1,58 @@
-hostname: rack2-leaf1
+hostname: rack1-leaf2
 
-svi_mlag: 10.255.2.1/30
+svi_mlag: 10.255.1.2/30
 
-mlag_domain_id: Rack2
-mlag_peer_address: 10.255.2.2
+mlag_domain_id: Rack1
+mlag_peer_address: 10.255.1.2
 
 bgp:
    as_local: 65102
    as_spine: 65001
-   router_id: 10.254.254.31
+   router_id: 10.254.254.22
    spines:
-      - 10.1.2.10
-      - 10.2.2.10
-      - 10.3.2.10
-      - 10.4.2.10
-   partner_leaf: 10.255.2.2
+      - 10.1.1.20
+      - 10.2.1.20
+      - 10.3.1.20
+      - 10.4.1.20
+   partner_leaf: 10.255.1.1
    networks:
       - 172.16.112.0/24
 
 lo_interfaces:
   - name: Loopback0
     description: BGP RID
-    address: 10.254.254.31/32
+    address: 10.254.254.22/32
   - name: Loopback1
     description: VXLAN Source Interface
-    address: 10.254.255.31/32
+    address: 10.254.255.22/32
 
 ip_interfaces:
   - name: Ethernet1
     description: spine1:e3:p2p
-    address: 10.1.2.11/31
+    address: 10.1.1.21/31
     state: present
     mtu: 9214
   - name: Ethernet2
     description: spine2:e3:p2p
-    address: 10.2.2.11/31
+    address: 10.2.1.21/31
     state: present
     mtu: 9214
   - name: Ethernet3
     description: spine3:e3:p2p
-    address: 10.3.2.11/31
+    address: 10.3.1.21/31
     state: present
     mtu: 9214
   - name: Ethernet4
     description: spine4:e3:p2p
-    address: 10.4.2.11/31
+    address: 10.4.1.21/31
     state: present
     mtu: 9214
 
 l2_interfaces:
   - name: Ethernet5
-    description: rack2-linux-01:e1:l2
+    description: rack2-linux-01:e2:l2
     channel_group: 10
-  - name: Ethernet6
-    description: rack2-esxi-01:e1:l2
-    status: shutdown
-    switchport_mode: access
-    switchport_access_vlan: 12
-    vmtracer: true
-
+    
 po_interfaces:
   - name: Port-Channel10
     description: rack2-linux-01
@@ -69,5 +63,5 @@ po_interfaces:
 vlan_interfaces:
   - name: vlan12
     description: Production
-    address: 172.16.112.31/24
+    address: 172.16.112.22/24
     ip_virtual_router_address: 172.16.112.1

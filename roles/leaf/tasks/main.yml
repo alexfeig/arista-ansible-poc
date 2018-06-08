@@ -1,59 +1,30 @@
 ---
-- name: Configuring CVX
-  eos_config:
-    src: cvx.j2
-    provider: "{{ eos_api }}"
+  - block: 
+    - name: "[PROD] Pushing Leaf Configuration"
+      eos_config:
+        src: leaf.j2
+        provider: "{{ eos_api }}"
 
-- name: Configuring VXLAN mapping
-  eos_config:
-    src: vxlan.j2
-    provider: "{{ eos_api }}"
-  tags: vxlan
+    when: production is defined
 
-- name: Configuring IP Interfaces
-  eos_config:
-    src: ip_interfaces.j2
-    provider: "{{ eos_api }}"
-  tags: leaf_interfaces
+  - block: 
+    - name: "[Test] Generating Leaf Configuration"
+      local_action: template
+      args:
+        src: leaf.j2
+        dest: "configs/{{ inventory_hostname }}/{{ inventory_hostname }}_leaf.config"
 
-- name: Configuring VLANs
-  eos_config:
-    src: vlans.j2
-    provider: "{{ eos_api }}"
-  tags: leaf_vlans
+    - name: "[Test] Combining Configuration Files"
+      assemble:
+        src: "configs/{{ inventory_hostname }}/"
+        dest: "configs/{{ inventory_hostname }}/{{ inventory_hostname }}.config"
 
-- name: Configuring MLAG
-  eos_config:
-    src: mlag.j2
-    provider: "{{ eos_api }}"
+    - name: "[Test] Peforming file cleanup"
+      file:
+        state: absent
+        path: "{{ item }}"
+      with_items:
+        - "configs/{{ inventory_hostname }}/{{ inventory_hostname }}_leaf.config"
+        - "configs/{{ inventory_hostname }}/{{ inventory_hostname }}_global.config"
 
-- name: Configuring L2 Interfaces
-  eos_config:
-    src: l2_interfaces.j2
-    provider: "{{ eos_api }}"
-  tags: l2_interfaces
-
-- name: Configuring Port-Channel Interfaces
-  eos_config:
-    src: po_interfaces.j2
-    provider: "{{ eos_api }}"
-  tags: po_interfaces
-
-- name: Configuring Loopback Interfaces
-  eos_config:
-    src: lo_interfaces.j2
-    provider: "{{ eos_api }}"
-  tags: lo_interfaces
-
-- name: Configuring VLAN Interfaces
-  eos_config:
-    src: vlan_interfaces.j2
-    provider: "{{ eos_api }}"
-  tags: vlan_interfaces
-
-- name: Configuring BGP
-  eos_config:
-    src: leaf_bgp.j2
-    provider: "{{ eos_api }}"
-  tags: leaf_bgp
-
+    when: test is defined

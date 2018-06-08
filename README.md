@@ -1,16 +1,18 @@
 # An Ansible based POC to configure Arista switches.
 
-I really need to add to this, but for now, please note that you need to add the following variables:
+Please note that you need to add the following variables:
 
 * `admin_secret` - this is a hashed password
 * `admin_sshkey` - this is your SSH key
-* `ansible_python_interpreter` - optional Python path, useful for homebrew
+* `ansible_python_interpreter` - optional Python path, useful for OS X homebrew Python installations
 
 Install Ansible roles by running `setup.sh`
-    
-Also of note, I'm starting to add VLAN -> VXLAN mapping roles in for day2 ops.
+
+Edit the inventory file and variable files for your desired configuration.
+
+## Running it
+
+To run, use `ansible-playbook`: `ansible-playbook -i hosts site.yml`
 
 ## Requirements
-You must use Ansible 2.2.0 for this. 2.2.1 does not work properly. Issue https://github.com/ansible/ansible/issues/21901 has been raised.
-
-To ensure you have the proper version, use the following `pip` command: `pip install -U ansible==2.2.0.0`
+You must use Ansible 2.3 or greater for this. 2.2.1 does not work properly. 

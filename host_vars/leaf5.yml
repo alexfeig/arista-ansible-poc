@@ -1,0 +1,67 @@
+hostname: rack3-leaf1
+
+svi_mlag: 10.255.3.1/30
+
+mlag_domain_id: Rack3
+mlag_peer_address: 10.255.3.1
+
+bgp:
+   as_local: 65103
+   as_spine: 65001
+   router_id: 10.254.254.41
+   spines:
+      - 10.1.3.10
+      - 10.2.3.10
+      - 10.3.3.10
+      - 10.4.3.10
+   partner_leaf: 10.255.3.2
+   networks:
+      - 172.16.112.0/24
+
+lo_interfaces:
+  - name: Loopback0
+    description: BGP RID
+    address: 10.254.254.41/32
+  - name: Loopback1
+    description: VXLAN Source Interface
+    address: 10.254.255.41/32
+
+ip_interfaces:
+  - name: Ethernet1
+    description: spine1:e5:p2p
+    address: 10.1.3.11/31
+    state: present
+    mtu: 9214
+  - name: Ethernet2
+    description: spine2:e5:p2p
+    address: 10.2.3.11/31
+    state: present
+    mtu: 9214
+  - name: Ethernet3
+    description: spine3:e5:p2p
+    address: 10.3.3.11/31
+    state: present
+    mtu: 9214
+  - name: Ethernet4
+    description: spine4:e5:p2p
+    address: 10.4.3.11/31
+    state: present
+    mtu: 9214
+
+l2_interfaces:
+  - name: Ethernet5
+    description: rack3-linux-01:e1:l2
+    channel_group: 10
+
+po_interfaces:
+  - name: Port-Channel10
+    description: rack3-linux-01
+    switchport_mode: access
+    switchport_access_vlan: 12
+    mlag: 10
+
+vlan_interfaces:
+  - name: vlan12
+    description: Production
+    address: 172.16.112.41/24
+    ip_virtual_router_address: 172.16.112.1

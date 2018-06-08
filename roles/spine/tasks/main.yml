@@ -1,0 +1,15 @@
+---
+- name: Configuring IP Interfaces
+  eos_config:
+    src: ip_interfaces.j2
+    provider: "{{ eos_api }}"
+
+- name: Configuring BGP
+  eos_config:
+    src: spine_bgp.j2
+    provider: "{{ eos_api }}"
+
+- name: Configuring Loopback Interfaces
+  eos_config:
+    src: lo_interfaces.j2
+    provider: "{{ eos_api }}"
