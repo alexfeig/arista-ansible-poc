@@ -17,14 +17,13 @@
     - name: "[Test] Combining Configuration Files"
       assemble:
         src: "configs/{{ inventory_hostname }}/"
-        dest: "configs/{{ inventory_hostname }}/{{ inventory_hostname }}.config"
+        dest: "configs/{{config_prefix}}_{{ inventory_hostname }}"
 
     - name: "[Test] Peforming file cleanup"
       file:
         state: absent
         path: "{{ item }}"
       with_items:
-        - "configs/{{ inventory_hostname }}/{{ inventory_hostname }}_leaf.config"
-        - "configs/{{ inventory_hostname }}/{{ inventory_hostname }}_global.config"
+        - "configs/{{ inventory_hostname }}/"
 
-    when: test is defined
+      when: test is defined
