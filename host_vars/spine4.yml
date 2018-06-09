@@ -46,7 +46,7 @@ ip_interfaces:
     mtu: 9214
   - name: Ethernet4
     description: leaf4:e4:p2p
-    address: 10.4.3.10/31
+    address: 10.4.2.20/31
     state: present
     mtu: 9214
   - name: Ethernet5
