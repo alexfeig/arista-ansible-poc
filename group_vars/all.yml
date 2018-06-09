@@ -39,3 +39,4 @@ route_static_default_nexthop: 192.168.50.1
 ip_name_server: 192.168.50.1
 
 config_prefix: ls
+

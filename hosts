@@ -18,7 +18,7 @@ leaf4 ansible_host=192.168.50.32
 leaf5 ansible_host=192.168.50.41
 leaf6 ansible_host=192.168.50.42
 
-[spines]
+[spine]
 spine1 ansible_host=192.168.50.51
 spine2 ansible_host=192.168.50.52
 spine3 ansible_host=192.168.50.53

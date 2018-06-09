@@ -1,2 +1,3 @@
 - include: global.yml
 - include: leaf.yml
+- include: spine.yml

@@ -4,12 +4,24 @@ bgp:
    as_local: 65001
    router_id: 10.254.254.52
    leaf:
-      - 10.2.1.11
-      - 10.2.1.21
-      - 10.2.2.11
-      - 10.2.2.21
-      - 10.2.3.11
-      - 10.2.3.21
+      - name: leaf1
+        ip: 10.2.1.11
+        asn: 65101
+      - name: leaf2
+        ip: 10.2.1.21
+        asn: 65101
+      - name: leaf3
+        ip: 10.2.2.11
+        asn: 65102
+      - name: leaf4
+        ip: 10.2.2.21
+        asn: 65102
+      - name: leaf5
+        ip: 10.2.3.11
+        asn: 65103
+      - name: leaf6
+        ip: 10.2.3.21
+        asn: 65103
 
 lo_interfaces:
   - name: Loopback0

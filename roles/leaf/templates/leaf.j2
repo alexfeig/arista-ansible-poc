@@ -108,14 +108,12 @@ router bgp {{ bgp.as_local }}
    maximum-paths 4 ecmp 4
    neighbor Spine peer-group
    neighbor Spine remote-as {{ bgp.as_spine }}
-   neighbor Spine fall-over bfd
    neighbor Spine maximum-routes 12000
 {% for spine in bgp.spines %}
    neighbor {{ spine }} peer-group Spine
 {% endfor %}
    neighbor {{ bgp.partner_leaf }} remote-as {{ bgp.as_local }}
    neighbor {{ bgp.partner_leaf }} next-hop-self
-   neighbor {{ bgp.partner_leaf }} fall-over bfd
    neighbor {{ bgp.partner_leaf }} maximum-routes 12000
 {% for loopback in lo_interfaces %}
    network {{ loopback.address }}

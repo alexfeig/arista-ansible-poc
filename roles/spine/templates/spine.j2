@@ -1,0 +1,26 @@
+{% for intf in ip_interfaces %}
+interface {{ intf.name }}
+   description {{ intf.description }}
+   no switchport
+   mtu {{ intf.mtu }}
+   ip address {{ intf.address }}
+{% endfor %}
+
+{% for intf in lo_interfaces %}
+interface {{ intf.name }}
+   description {{ intf.description }}
+   ip address {{ intf.address }}
+{% endfor %}
+
+router bgp {{ bgp.as_local }}
+   router-id {{ bgp.router_id }}
+   maximum-paths 4 ecmp 4
+   neighbor Leaf peer-group
+   neighbor Leaf maximum-routes 12000
+   {% for leaf in bgp.leaf %}
+   neighbor {{ leaf.ip }} peer-group Leaf
+   neighbor {{ leaf.ip }} remote-as {{ leaf.asn }}
+   {% endfor %}
+   {% for loopback in lo_interfaces %}
+   network {{ loopback.address }}
+   {% endfor %}

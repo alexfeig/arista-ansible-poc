@@ -1,15 +1,29 @@
 ---
-- name: Configuring IP Interfaces
-  eos_config:
-    src: ip_interfaces.j2
-    provider: "{{ eos_api }}"
+  - block: 
+    - name: "[PROD] Pushing Spine Configuration"
+      eos_config:
+        src: spine.j2
+        provider: "{{ eos_api }}"
 
-- name: Configuring BGP
-  eos_config:
-    src: spine_bgp.j2
-    provider: "{{ eos_api }}"
+    when: production is defined
 
-- name: Configuring Loopback Interfaces
-  eos_config:
-    src: lo_interfaces.j2
-    provider: "{{ eos_api }}"
+  - block: 
+    - name: "[Test] Generating Spine Configuration"
+      local_action: template
+      args:
+        src: spine.j2
+        dest: "configs/{{ inventory_hostname }}/{{ inventory_hostname }}_spine.config"
+
+    - name: "[Test] Combining Configuration Files"
+      assemble:
+        src: "configs/{{ inventory_hostname }}/"
+        dest: "configs/{{config_prefix}}_{{ inventory_hostname }}"
+
+    - name: "[Test] Peforming file cleanup"
+      file:
+        state: absent
+        path: "{{ item }}"
+      with_items:
+        - "configs/{{ inventory_hostname }}/"
+
+      when: test is defined
